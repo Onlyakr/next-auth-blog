@@ -1,4 +1,4 @@
-const Post = ({ params }: { params: { id: string } }) => {
-	return <div>Post {params.id}</div>;
-};
+const Post = ({ params }: { params: { id: string } }) => (
+  <div>Post {params.id}</div>
+);
 export default Post;

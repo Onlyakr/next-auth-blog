@@ -1,4 +1,2 @@
-const Posts = () => {
-	return <div>Posts</div>;
-};
+const Posts = () => <div>Posts</div>;
 export default Posts;

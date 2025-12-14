@@ -1,11 +1,9 @@
 import Navbar from "@/components/navbar";
 
-const UserLayout = ({ children }: { children: React.ReactNode }) => {
-	return (
-		<div className="min-h-screen flex flex-col">
-			<Navbar />
-			<main className="flex-1">{children}</main>
-		</div>
-	);
-};
+const UserLayout = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex min-h-screen flex-col">
+    <Navbar />
+    <main className="flex-1">{children}</main>
+  </div>
+);
 export default UserLayout;
