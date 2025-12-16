@@ -65,6 +65,9 @@ importers:
       shadcn:
         specifier: ^3.6.0
         version: 3.6.0(@types/node@20.19.26)(typescript@5.9.3)
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -112,8 +115,8 @@ importers:
         specifier: ^5
         version: 5.9.3
       ultracite:
-        specifier: 6.4.0
-        version: 6.4.0(effect@3.18.4)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))
+        specifier: 6.4.1
+        version: 6.4.1(effect@3.18.4)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))
 
 packages:
 
@@ -1219,8 +1222,8 @@ packages:
   '@tailwindcss/postcss@4.1.18':
     resolution: {integrity: sha512-Ce0GFnzAOuPyfV5SxjXGn0CubwGcuDB0zcdaPuCSzAa/2vII24JTkH+I6jcbXLb1ctjZMZZI6OjDaLPJQL1S0g==}
 
-  '@trpc/server@11.7.2':
-    resolution: {integrity: sha512-AgB26PXY69sckherIhCacKLY49rxE2XP5h38vr/KMZTbLCL1p8IuIoKPjALTcugC2kbyQ7Lbqo2JDVfRSmPmfQ==}
+  '@trpc/server@11.8.0':
+    resolution: {integrity: sha512-DphyQnLuyX2nwJCQGWQ9zYz4hZGvRhSBqDhQ0SH3tDhQ3PU4u68xofA0pJ741Ir4InEAFD+TtJVLAQy+wVOkiQ==}
     peerDependencies:
       typescript: '>=5.7.2'
 
@@ -2700,6 +2703,10 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
+  slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
+
   sonner@2.0.7:
     resolution: {integrity: sha512-W6ZN4p58k8aDKA4XPcx2hpIQXBRAgyiWVkYhT7CvK6D3iAu7xjvVyhQHg2/iaKJZ1XVJ4r7XuwGL+WGEK37i9w==}
     peerDependencies:
@@ -2887,8 +2894,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ultracite@6.4.0:
-    resolution: {integrity: sha512-N7D427ofOfZLuMAK8JMosTzb1ww+y/UGA8fqaBItRpCQLTsf/V/HDjmNVrzeS+8I7gBW7Ng3vp29+2RtW2gANA==}
+  ultracite@6.4.1:
+    resolution: {integrity: sha512-RgkWJcrKH57OGWOK8C2huohLxDa70DYVWM0FmmISRhvoWCngK5E13DkPSujvDoD7b5BgzOkNwsmiIKBmlZo94A==}
     hasBin: true
 
   undici-types@6.21.0:
@@ -4000,7 +4007,7 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.18
 
-  '@trpc/server@11.7.2(typescript@5.9.3)':
+  '@trpc/server@11.8.0(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
 
@@ -5453,6 +5460,8 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
+  slugify@1.6.6: {}
+
   sonner@2.0.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
     dependencies:
       react: 19.2.1
@@ -5552,11 +5561,11 @@ snapshots:
     dependencies:
       tldts: 7.0.19
 
-  trpc-cli@0.12.1(@trpc/server@11.7.2(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.1.13):
+  trpc-cli@0.12.1(@trpc/server@11.8.0(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.1.13):
     dependencies:
       commander: 14.0.2
     optionalDependencies:
-      '@trpc/server': 11.7.2(typescript@5.9.3)
+      '@trpc/server': 11.8.0(typescript@5.9.3)
       effect: 3.18.4
       valibot: 1.2.0(typescript@5.9.3)
       zod: 4.1.13
@@ -5597,16 +5606,16 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  ultracite@6.4.0(effect@3.18.4)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3)):
+  ultracite@6.4.1(effect@3.18.4)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3)):
     dependencies:
       '@clack/prompts': 0.11.0
-      '@trpc/server': 11.7.2(typescript@5.9.3)
+      '@trpc/server': 11.8.0(typescript@5.9.3)
       deepmerge: 4.3.1
       glob: 13.0.0
       jsonc-parser: 3.3.1
       nypm: 0.6.2
       picocolors: 1.1.1
-      trpc-cli: 0.12.1(@trpc/server@11.7.2(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.1.13)
+      trpc-cli: 0.12.1(@trpc/server@11.8.0(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.1.13)
       zod: 4.1.13
     transitivePeerDependencies:
       - '@orpc/server'

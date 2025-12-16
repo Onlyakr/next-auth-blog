@@ -1,76 +1,149 @@
-"use client";
-
-import { Menu01Icon, Search02Icon } from "@hugeicons/core-free-icons";
+import { LicenseDraftIcon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { signOut } from "@/lib/auth-client";
-import { Button, buttonVariants } from "./ui/button";
+import { getUserSession } from "@/dal/user/get-user-session";
+import NavLink from "./nav-link";
+import SearchBar from "./searchbar";
+import SignoutButton from "./signout-button";
+import { ThemeToggle } from "./theme-toggle";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { buttonVariants } from "./ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 
-const Navbar = () => {
-  const router = useRouter();
+const Navbar = async () => {
+	const session = await getUserSession();
 
-  const handleClick = async () => {
-    await signOut();
-    router.push("/");
-  };
+	return (
+		<header className="sticky top-0 z-50 w-full bg-background/70 shadow-sm backdrop-blur-lg">
+			<nav className="container mx-auto flex items-center justify-between p-4 sm:px-6 lg:px-8">
+				<Link className="flex items-center gap-2 font-medium text-2xl" href="/">
+					<HugeiconsIcon className="size-8" icon={LicenseDraftIcon} />
+					Blog
+				</Link>
 
-  return (
-    <header className="sticky top-0 z-50 w-full bg-background/70 shadow-sm backdrop-blur-lg">
-      <nav className="container mx-auto flex items-center justify-between p-4 sm:px-6 lg:px-8">
-        <Link className="font-bold text-2xl" href="/">
-          Blog
-          <span className="text-primary">bog</span>
-        </Link>
+				{session && (
+					<div className="hidden items-center gap-8 lg:flex">
+						<NavLink href="/">Posts</NavLink>
+						<NavLink href="/create">Create</NavLink>
+					</div>
+				)}
 
-        <div className="hidden w-full max-w-xs sm:block">
-          <InputGroup>
-            <InputGroupInput placeholder="Search..." />
-            <InputGroupAddon>
-              <HugeiconsIcon icon={Search02Icon} />
-            </InputGroupAddon>
-          </InputGroup>
-        </div>
+				<SearchBar />
 
-        <div>
-          <div className="md:hidden">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <HugeiconsIcon icon={Menu01Icon} />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Hello</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+				{/* Mobile menu */}
+				<div className="lg:hidden">
+					<DropdownMenu>
+						<DropdownMenuTrigger className="size-8 cursor-pointer">
+							<HugeiconsIcon icon={Menu01Icon} />
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align="end">
+							{session ? (
+								<>
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/">
+											Home
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/">
+											Posts
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/my-posts">
+											My posts
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem className="p-0" variant="destructive">
+										<SignoutButton className="w-full hover:bg-transparent hover:text-destructive" />
+									</DropdownMenuItem>
+								</>
+							) : (
+								<>
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/">
+											Home
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/sign-in">
+											Sign In
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/sign-up">
+											Sign Up
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+								</>
+							)}
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</div>
 
-          <div className="hidden gap-4 md:flex">
-            <Link
-              className={`${buttonVariants({ variant: "outline" })}`}
-              href="/sign-in"
-            >
-              Sign In
-            </Link>
-            <Link
-              className={`${buttonVariants({ variant: "default" })}`}
-              href="/sign-up"
-            >
-              Sign Up
-            </Link>
-            <Button onClick={handleClick} variant="destructive">
-              Sign Out
-            </Button>
-          </div>
-        </div>
-      </nav>
-    </header>
-  );
+				{/* Desktop menu */}
+				<div className="hidden w-[200px] items-center justify-center gap-8 lg:flex">
+					{session ? (
+						<div className="flex items-center gap-4">
+							<DropdownMenu>
+								<DropdownMenuTrigger className="cursor-pointer">
+									<Avatar>
+										<AvatarImage src={session.user?.image as string} />
+										<AvatarFallback>
+											{session.user.name.charAt(0)}
+										</AvatarFallback>
+									</Avatar>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="end">
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/">
+											Profile
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem>
+										<Link className="w-full text-center" href="/my-posts">
+											My posts
+										</Link>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+							<SignoutButton variant="destructive" />
+						</div>
+					) : (
+						<>
+							<Link
+								className={`${buttonVariants({ variant: "secondary" })}`}
+								href="/sign-in"
+							>
+								Sign In
+							</Link>
+
+							<Link
+								className={`${buttonVariants({ variant: "default" })}`}
+								href="/sign-up"
+							>
+								Sign Up
+							</Link>
+						</>
+					)}
+					<ThemeToggle />
+				</div>
+			</nav>
+		</header>
+	);
 };
+
 export default Navbar;

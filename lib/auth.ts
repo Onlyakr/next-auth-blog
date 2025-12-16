@@ -9,46 +9,46 @@ import prisma from "@/lib/prisma";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: "postgresql",
-  }),
+	database: prismaAdapter(prisma, {
+		provider: "postgresql",
+	}),
 
-  emailVerification: {
-    sendVerificationEmail: async ({ user, url }) => {
-      await resend.emails.send({
-        from: "Blogbog <onboarding@resend.dev>",
-        to: [user.email],
-        subject: "Verify your email address",
-        react: EmailVerification({
-          userEmail: user.email,
-          verificationLink: url,
-        }),
-      });
-    },
-    sendOnSignUp: true,
-  },
+	emailVerification: {
+		sendVerificationEmail: async ({ user, url }) => {
+			await resend.emails.send({
+				from: "Blogbog <onboarding@resend.dev>",
+				to: [user.email],
+				subject: "Verify your email address",
+				react: EmailVerification({
+					userEmail: user.email,
+					verificationLink: url,
+				}),
+			});
+		},
+		sendOnSignUp: true,
+	},
 
-  emailAndPassword: {
-    enabled: true,
-    sendResetPassword: async ({ user, url }) => {
-      await resend.emails.send({
-        from: "Blogbog <onboarding@resend.dev>",
-        to: [user.email],
-        subject: "Reset your password",
-        react: PasswordResetEmail({
-          userEmail: user.email,
-          resetLink: url,
-          expirationTime: "1 hour",
-        }),
-      });
-    },
-  },
+	emailAndPassword: {
+		enabled: true,
+		sendResetPassword: async ({ user, url }) => {
+			await resend.emails.send({
+				from: "Blogbog <onboarding@resend.dev>",
+				to: [user.email],
+				subject: "Reset your password",
+				react: PasswordResetEmail({
+					userEmail: user.email,
+					resetLink: url,
+					expirationTime: "1 hour",
+				}),
+			});
+		},
+	},
 
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    },
-  },
-  plugins: [nextCookies()],
+	socialProviders: {
+		google: {
+			clientId: process.env.GOOGLE_CLIENT_ID as string,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+		},
+	},
+	plugins: [nextCookies()],
 });
