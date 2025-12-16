@@ -11,7 +11,6 @@ const GoogleSigninButton = () => {
 				provider: "google",
 				callbackURL: "/",
 			});
-			toast.success("Sign in with Google successful");
 		} catch (error) {
 			const e = error as Error;
 			console.error(e.message);

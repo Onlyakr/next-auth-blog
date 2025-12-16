@@ -1,15 +1,13 @@
 import { redirect } from "next/navigation";
 import PageWrapper from "@/components/page-wrapper";
 import PostsList from "@/components/posts/post-list";
-import { getUserSession } from "@/dal/user/get-user-session";
+import { userHasPermission } from "@/dal/user/user-has-permission";
 
 const Home = async () => {
-	const session = await getUserSession();
-
-	if (!session) {
+	const { success } = await userHasPermission();
+	if (!success) {
 		redirect("/sign-in");
 	}
-
 	return (
 		<PageWrapper>
 			<div className="flex flex-col gap-8">

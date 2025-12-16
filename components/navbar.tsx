@@ -47,13 +47,13 @@ const Navbar = async () => {
 								<>
 									<DropdownMenuItem>
 										<Link className="w-full text-center" href="/">
-											Home
+											Posts
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem>
-										<Link className="w-full text-center" href="/">
-											Posts
+										<Link className="w-full text-center" href="/create">
+											Create
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuSeparator />
@@ -69,12 +69,6 @@ const Navbar = async () => {
 								</>
 							) : (
 								<>
-									<DropdownMenuItem>
-										<Link className="w-full text-center" href="/">
-											Home
-										</Link>
-									</DropdownMenuItem>
-									<DropdownMenuSeparator />
 									<DropdownMenuItem>
 										<Link className="w-full text-center" href="/sign-in">
 											Sign In
@@ -123,7 +117,7 @@ const Navbar = async () => {
 							<SignoutButton variant="destructive" />
 						</div>
 					) : (
-						<>
+						<div className="flex items-center gap-4">
 							<Link
 								className={`${buttonVariants({ variant: "secondary" })}`}
 								href="/sign-in"
@@ -137,7 +131,7 @@ const Navbar = async () => {
 							>
 								Sign Up
 							</Link>
-						</>
+						</div>
 					)}
 					<ThemeToggle />
 				</div>

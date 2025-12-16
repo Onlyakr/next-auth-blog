@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-import { getUserSession } from "../user/get-user-session";
+import { userHasPermission } from "../user/user-has-permission";
 
 export const getPostBySlug = async (slug: string) => {
 	try {
-		const session = await getUserSession();
-
-		if (!session) {
+		const { success } = await userHasPermission();
+		if (!success) {
 			redirect("/sign-in");
 		}
 

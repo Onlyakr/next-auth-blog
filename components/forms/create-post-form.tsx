@@ -47,6 +47,7 @@ const CreatePostForm = () => {
 		defaultValues: {
 			title: "",
 			content: "",
+			imageUrl: "",
 			categoryId: "",
 		},
 	});
@@ -69,8 +70,6 @@ const CreatePostForm = () => {
 			setIsLoading(false);
 		}
 	}
-
-	console.log(categories);
 
 	return (
 		<Card className="w-full sm:max-w-md">
@@ -114,6 +113,25 @@ const CreatePostForm = () => {
 										id="content"
 										placeholder="Content"
 										type="text"
+									/>
+									{fieldState.invalid && (
+										<FieldError errors={[fieldState.error]} />
+									)}
+								</Field>
+							)}
+						/>
+						<Controller
+							control={form.control}
+							name="imageUrl"
+							render={({ field, fieldState }) => (
+								<Field data-invalid={fieldState.invalid}>
+									<FieldLabel htmlFor="imageUrl">Image</FieldLabel>
+									<Input
+										{...field}
+										aria-invalid={fieldState.invalid}
+										id="imageUrl"
+										placeholder="Image"
+										type="file"
 									/>
 									{fieldState.invalid && (
 										<FieldError errors={[fieldState.error]} />

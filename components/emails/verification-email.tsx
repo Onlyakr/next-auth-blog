@@ -28,7 +28,7 @@ const VerificationEmail = ({
 						{/* Header */}
 						<Section className="mb-[32px] text-center">
 							<Text className="m-0 font-bold text-[24px] text-gray-900">
-								blog<span className="text-pink-600">bog</span>
+								blog<span className="text-teal-600">bog</span>
 							</Text>
 							<Text className="m-0 mt-[8px] font-bold text-[20px] text-gray-900">
 								Verify Your Email Address
@@ -54,7 +54,7 @@ const VerificationEmail = ({
 						{/* CTA Button */}
 						<Section className="mb-[32px] text-center">
 							<Button
-								className="box-border rounded-[8px] bg-pink-600 px-[32px] py-[16px] font-semibold text-[16px] text-white no-underline hover:bg-pink-700"
+								className="box-border rounded-[8px] bg-teal-600 px-[32px] py-[16px] font-semibold text-[16px] text-white no-underline hover:bg-teal-700"
 								href={verificationLink}
 							>
 								Verify Email Address
@@ -67,7 +67,7 @@ const VerificationEmail = ({
 								If the button above doesn't work, copy and paste this link into
 								your browser:
 							</Text>
-							<Text className="break-all text-[14px] text-pink-600">
+							<Text className="break-all text-[14px] text-teal-600">
 								{verificationLink}
 							</Text>
 						</Section>

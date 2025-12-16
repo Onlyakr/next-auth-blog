@@ -36,10 +36,11 @@ export const createPost = async (data: z.infer<typeof createPostSchema>) => {
 			strict: true,
 		}) as string;
 
-		const createdPost = await prisma.post.create({
+		await prisma.post.create({
 			data: {
 				title: parsedData.title,
 				content: parsedData.content,
+				imageUrl: parsedData.imageUrl,
 				categoryId: parsedData.categoryId,
 				authorId: userId,
 				slug,
@@ -51,7 +52,6 @@ export const createPost = async (data: z.infer<typeof createPostSchema>) => {
 		return {
 			success: true,
 			message: "Post created successfully.",
-			data: createdPost,
 		};
 	} catch (error) {
 		const e = error as Error;
@@ -62,3 +62,50 @@ export const createPost = async (data: z.infer<typeof createPostSchema>) => {
 		};
 	}
 };
+
+export const deletePost = async (slug: string) => {
+	try {
+		const session = await getUserSession();
+		if (!session) {
+			return {
+				success: false,
+				message: "Unauthorized",
+			};
+		}
+
+		await prisma.post.delete({
+			where: {
+				slug,
+			},
+		});
+
+		revalidatePath("/");
+
+		return {
+			success: true,
+			message: "Post deleted successfully.",
+		};
+	} catch (error) {
+		const e = error as Error;
+		console.error(e.message);
+		return {
+			success: false,
+			message: e.message || "Failed to delete post",
+		};
+	}
+};
+
+// export const updatePost = async (
+// 	id: string,
+// 	data: z.infer<typeof createPostSchema>
+// ) => {
+// 	try {
+// 		const session = await getUserSession();
+// 		if (!session) {
+// 			return {
+// 				success: false,
+// 				message: "Unauthorized",
+// 			};
+// 		}
+// 	}
+// };

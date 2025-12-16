@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "prepare": "husky"
+    "start": "next start"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
@@ -41,7 +40,6 @@
     "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "husky": "^9.1.7",
     "prisma": "^7.1.0",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
