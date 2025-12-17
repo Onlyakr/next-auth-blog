@@ -11,13 +11,16 @@ import {
 	CardTitle,
 } from "../ui/card";
 
-type PostCardProps = {
+export type PostCardProps = {
 	post: {
 		title: string;
 		category: Category;
 		author: User;
 		content: string;
 		slug: string;
+		authorId: string;
+		categoryId: string;
+		imageUrl?: string | null;
 	};
 };
 
